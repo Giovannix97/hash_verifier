@@ -4,16 +4,27 @@ import hash
 
 
 def choose_file_callback(root, label_to_update):
+    """ Choose a file from the local disk and display the path in the GUI """
     root.filename = filedialog.askopenfilename(initialdir="C:\\", title="Select a file")
     label_to_update.config(text=root.filename)
 
 
 def radio_button_selection(selection, filepath, label):
+    """ Get selection from the radio button
+
+    Parameters
+    ----------
+    selection: int
+        Algorithm choice between MD5 and SHA-256
+    filepath: str
+        A string representing the absolute path of the file
+    label: Label()
+        Text label representing the final hash (result)
+    """
     algorithm_choice = selection.get()
 
     if algorithm_choice == 1:
         result_hash = hash.md5(filepath)
-        print(hash.md5(filepath))
     elif algorithm_choice == 2:
         result_hash = hash.sha256(filepath)
     else:
@@ -23,13 +34,15 @@ def radio_button_selection(selection, filepath, label):
 
 
 def initialize_gui():
+    """ Initialize all the graphical elements """
+
     #Initial Configuration
     root = Tk()
     root.geometry("500x500")  # Height and Width Specification
     root.configure(background='#c9c7c7')  # Background will be Silver Lake Blue
     root.title("Hash Verifier")
     root.resizable(False, False)  # Gui is not resizable
-    root.iconbitmap("img/icon.bmp") #fix the icon
+    #root.iconbitmap("img/icon.bmp") #fix the icon #FIXME: the image must be a bitmap and not png/jpg
 
 
     # This frame is a container for all his children
